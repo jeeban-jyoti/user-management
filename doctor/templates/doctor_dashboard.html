@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .user-details-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    {% if role == "doctor" %}
+    <div class="user-details-container">
+        <h1 id="fullName">{{first_name}} {{last_name}}</h1>
+        <p id="email">{{email}}</p>
+        <p id="address">{{address}}</p>
+        <p id="role">{{role}}</p>
+    </div>
+    {% else %}
+    <div class="user-details-container">
+        <h1 id="fullName">User Not Found</h1>
+    </div>
+    {% endif %}
+
+</body>
+</html>
