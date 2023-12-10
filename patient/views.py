@@ -1,19 +1,22 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from . import MYSQL
+import pickle
 
 @csrf_exempt
 def signup(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name','')
         last_name = request.POST.get('last_name','')
-        profile_picture = request.POST.get('profile_picture','')
+        profile_picture = request.FILES.get('profile_picture',None)
         username = request.POST.get('username','')
         email = request.POST.get('email','')
         password = request.POST.get('password','')
         confirm_password = request.POST.get('confirm_password','')
         address = request.POST.get('address','')
-        print(first_name, last_name, profile_picture, username, email, password, confirm_password, address)
+        print(first_name, last_name, type(profile_picture), username, email, password, confirm_password, address)
+        profile_picture_data = profile_picture.read()
+        print(type(profile_picture_data))
 
 
         if password != confirm_password:
@@ -42,7 +45,7 @@ def login(request):
         conn.execute('use project')
         conn.execute(f'select password from users where email="{email}"')
         if password == conn.fetchall()[0][0]:
-            conn.execute(f'update users set access_granted=true where email="{email}"')
+            conn.execute(f'update users set access_granted=1 where email="{email}"')
             response = redirect(f'/patient/dashboard?email={email}')
         
 
